@@ -1,0 +1,21 @@
+<link rel="stylesheet"
+	type="text/css"
+		href="{{ url_for('static', filename='./css/bootstrap.css') }}">
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+	Welcome, {{ name }}!
+</h1>
+<h2 class="subtitle">
+	Here you will find information about the entire weekend, respond to the invitation, view images and much more
+</h2>
+{% endblock %}
+
+<!--<div class="col-md-3 col-md-offset-1">
+	<h4>Welcome to Kristian and Veras wedding</h4>
+	<h5>Here you will find information about the entire weekend, respond to the invitation, view images and much more</h5>
+</div>-->
+
+<br/>
