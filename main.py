@@ -1,14 +1,15 @@
-from flask import Blueprint,render_template, request, redirect, flash
-from . import db
+from flask import Blueprint,render_template, request, redirect, flash, current_app
+from . import db, babel
 from flask_login import login_required, current_user
 from .models import User, Guest
+from flask_babel import gettext, ngettext
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 @login_required
 def index():
-    return render_template("index.html", name=current_user.name)
+    return render_template("index.html", name=current_user.name, guests=getFormattedGuests(current_user))
 
 @main.route('/osa', methods=['GET'])
 @login_required
@@ -25,6 +26,11 @@ def gallery():
 def schedule():
     return render_template("schedule.html")
 
+@main.route('/responses', methods=['GET'])
+@login_required
+def responses():
+    return render_template("responses.html")
+
 @main.route('/faq', methods=['GET'])
 @login_required
 def faq():
@@ -34,13 +40,13 @@ def faq():
 @login_required
 def submit_osa():
     current_user.email = request.form.get('email')
-    current_user.song = request.form.get('song')
     guests = getGuests(current_user)
 
     for guest in guests:
         guest.isAttending = request.form.get('attending_' + guest.name) != None
         guest.nonAlcoholic = request.form.get('nonAlco_' + guest.name) != None
         guest.foodPreferences = request.form.get('food_' + guest.name)
+        guest.song = request.form.get('song_' + guest.name)
         guest.hasResponded = True
         db.session.add(guest)
 
@@ -53,6 +59,30 @@ def submit_osa():
 
 def getGuests(current_user):
     guests = Guest.query.filter_by(userId=current_user.id).all()
-    print("HEEEEEEEEEEEEJ")
-    print(current_user.id)
     return guests
+
+def getFormattedGuests(current_user):
+    if (current_user.name == "Admin"):
+        return "admin"
+
+    guests = getGuests(current_user)
+
+    if (len(guests) == 1):
+        return guests[0].name
+    elif (len(guests) == 2):
+        return guests[0].name + " and " + guests[1].name
+    else:
+        return guests[0].name + ", " + guests[1].name + " and " + guests[2].name
+
+
+# add to you main app code
+@babel.localeselector
+def get_locale():
+    print(request.accept_languages.best_match(current_app.config['LANGUAGES'].keys()))
+    return 'se'
+
+@babel.timezoneselector
+def get_timezone():
+    user = getattr(g, 'user', None)
+    if user is not None:
+        return user.timezone

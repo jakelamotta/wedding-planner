@@ -5,12 +5,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-	Welcome, {{ name }}!
+<h1 class="title invitation">
+	Dear {{guests}}
 </h1>
-<h2 class="subtitle">
-	Here you will find information about the entire weekend, respond to the invitation, view images and much more
-</h2>
+
+<h1 class="title invitation">
+	{{gettext('The honor of your presence is requested at the marriage of Kristian and Vera')}}
+</h1>
+
+<h1 class="title invitation">
+	{{gettext('Saturday the 11th of June 2022 in the church of Saltvik at 3pm')}}
+</h1>
+
 {% endblock %}
 
 <!--<div class="col-md-3 col-md-offset-1">

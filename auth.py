@@ -61,7 +61,7 @@ def signup_post():
 
     # add the new user to the database
     db.session.add(new_user)
-
+    db.session.commit()
     dbGuest = Guest(name=name, userId=new_user.id)
     db.session.add(dbGuest)
     if (guest2 != None and guest2 != ""):
