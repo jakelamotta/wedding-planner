@@ -1,4 +1,4 @@
-from . import db
+from wedding import db, app, login_manager
 from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
@@ -18,3 +18,8 @@ class Guest(db.Model):
     song = db.Column(db.String(1000))
     foodPreferences = db.Column(db.String(1000))
     nonAlcoholic = db.Column(db.Boolean)
+
+@login_manager.user_loader
+def load_user(user_id):
+    # since the user_id is just the primary key of our user table, use it in the query for the user
+    return User.query.get(int(user_id))

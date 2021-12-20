@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  web:
+    container_name: wedding-ui
+    image: wedding:latest
+    restart: unless-stopped
+    ports:
+      - "8004:8001"
+    environment:
+      - DB_PASSWORD=OKnZHcWzKDzHxPp0UbgJ
+      - DB_HOST=db
+      - DB_PORT=3306
+    networks:
+      - wedding-net
+  db:
+    hostname: db
+    container_name: wedding-db
+    image: wedding-mariadb
+    restart: unless-stopped
+    ports:
+      - "3316:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=OKnZHcWzKDzHxPp0UbgJ
+    volumes:
+      - wedding-db:/var/lib/mysql
+    networks:
+      - wedding-net
+volumes:
+  wedding-db:
+    name: "wedding-db"
+    external: true
+
+networks:
+  wedding-net:
+    driver: bridge

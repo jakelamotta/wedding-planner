@@ -1,7 +1,8 @@
 from flask import Blueprint,render_template, request, redirect, flash, current_app
-from . import db, babel
+from wedding import db, babel, app, login_manager
 from flask_login import login_required, current_user
-from .models import User, Guest
+from models import User, Guest
+from auth import auth as auth_blueprint
 from flask_babel import gettext, ngettext
 
 main = Blueprint('main', __name__)
@@ -62,7 +63,7 @@ def getGuests(current_user):
     return guests
 
 def getFormattedGuests(current_user):
-    if (current_user.name == "Admin"):
+    if (current_user.name == "admin"):
         return "admin"
 
     guests = getGuests(current_user)
@@ -86,3 +87,6 @@ def get_timezone():
     user = getattr(g, 'user', None)
     if user is not None:
         return user.timezone
+
+app.register_blueprint(main)
+app.register_blueprint(auth_blueprint)
