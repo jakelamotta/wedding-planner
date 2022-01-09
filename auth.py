@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Guest
-from wedding import db
+from wedding import db, limiter
 from flask_login import login_user, logout_user, login_required
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 auth = Blueprint('auth', __name__)
 
@@ -13,6 +15,7 @@ def logout():
     return redirect(url_for('main.index'))
 
 @auth.route('/login')
+@limiter.limit("20 per hour")
 def login():
     return render_template('login.html')
 

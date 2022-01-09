@@ -1,18 +1,12 @@
-<link rel="stylesheet"
-	  type="text/css"
-	  href="{{ url_for('static', filename='./css/bootstrap.css') }}">
-
 {% extends "base.html" %}
 
 {% block content %}
+<h1 class="title invitation">
+	{{gettext('While we adore your children, this time we wish to celebrate with our adult friends and family. Breast feeding children are of course welcome.')}}
+</h1>
+
 <div class="row">
-	<div class="col-md-3 col-md-offset-1">
-		<h2>Please enter the following form</h2>
-	</div>
-</div>
-<br/>
-<div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 input-group">
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		<div class="notification is-success">
@@ -36,7 +30,7 @@
 				{% for guest in guests %}
 					<div class="form-group row">
 						<div class="col-md-3">
-							<label for="name_{{guest.name}}">Guest name</label>
+							<label for="name_{{guest.name}}">Name</label>
 							<input type="text"  class="input is-large form-control" id="name_{{guest.name}}" name="name_{{guest.name}}" disabled="true"
 							 value="{{guest.name}}">
 						</div>
@@ -56,19 +50,19 @@
 								   value="{{guest.song}}"
 								   pattern="[A-Za-z ]+">
 						</div>
-						<div class="col-md-1">
-							<label for="nonAlco_{{guest.name}}">No alcohol</label>
+						<div class="col-md-2">
+							<label for="nonAlco_{{guest.name}}">Alcohol-free</label>
 							<input type="checkbox" class="form-control" id="nonAlco_{{guest.name}}" name="nonAlco_{{guest.name}}" {{'checked' if guest.nonAlcoholic else ''}}>
 						</div>
 						<div class="col-md-1">
 							<label for="attending_{{guest.name}}">Attending</label>
-							<input type="checkbox" class="form-control" id="attending_{{guest.name}}" name="attending_{{guest.name}}" value="{{guest.isAttending}}"  {{'checked' if guest.isAttending else ''}}>
+							<input type="checkbox" class="form-control" id="attending_{{guest.name}}" name="attending_{{guest.name}}" value="{{guest.isAttending}}"  aria-label={{'checked' if guest.isAttending else ''}}>
 						</div>
 					</div>
 				{% endfor %}
 			{% endif %}
 			<div class="col-md-2">
-				<button type="submit" class="button is-block is-info is-large is-fullwidth">Send</button>
+				<button type="submit" class="btn btn-primary btn-lg">Send</button>
 			</div>
 
 		</form>

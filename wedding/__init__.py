@@ -4,6 +4,8 @@ from flask_login import LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_babel import Babel
 from . util import Config
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # init SQLAlchemy so we can use it later in our models
 db = flask_sqlalchemy.SQLAlchemy()
@@ -35,8 +37,12 @@ def create_app():
 
 app=create_app()
 
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["500 per day", "60 per hour"]
+)
+
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
-print("inited")
-

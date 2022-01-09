@@ -1,26 +1,23 @@
-<link rel="stylesheet"
-	  type="text/css"
-	  href="{{ url_for('static', filename='./css/bootstrap.css') }}">
-
 {% extends "base.html" %}
 
 {% block content %}
 <div class="row">
 	<div class="col-md-3 col-md-offset-1">
-		<div>{{gettext('Is there any dresscode?')}}</div>
+		<div>{{gettext('Location: ')}}</div>
 	</div>
 	<div class="col-md-3 col-md-offset-1">
-		<div>{{gettext('Yes! Dark suit')}}</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-3 col-md-offset-1">
-		<div>{{gettext('Where can we stay?')}}</div>
-	</div>
-	<div class="col-md-3 col-md-offset-1">
-		<div>{{gettext('See "Travel and accomodation"')}}</div>
+		<div>{{gettext('The wedding takes place on the Åland Islands in Finland. The ceremony in the ')}}<a href="https://goo.gl/maps/jAPNTHfyGBnojdka9">church of Saltvik</a>
+		and the reception at <a href="https://www.karingsund.ax/en">Käringsund Resort & Conference</a></div>
 	</div>
 </div>
 <br/>
-
+<div class="row">
+	<div class="col-md-3 col-md-offset-1">
+		<div>{{gettext('Where to stay: ')}}</div>
+	</div>
+	<div class="col-md-3 col-md-offset-1">
+		<div>Guests that stay at Käringsund Resort & Conference are offered a discount of 15% on the room charge. Please use the code VERA&KRISTIAN when doing reservations.</div>
+	</div>
+</div>
+<br/>
 {% endblock %}

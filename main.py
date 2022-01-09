@@ -30,7 +30,7 @@ def schedule():
 @main.route('/responses', methods=['GET'])
 @login_required
 def responses():
-    return render_template("responses.html")
+    return render_template("responses.html", guests=getAllGuests())
 
 @main.route('/faq', methods=['GET'])
 @login_required
@@ -60,6 +60,10 @@ def submit_osa():
 
 def getGuests(current_user):
     guests = Guest.query.filter_by(userId=current_user.id).all()
+    return guests
+
+def getAllGuests():
+    guests = Guest.query.all()
     return guests
 
 def getFormattedGuests(current_user):

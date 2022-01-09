@@ -6,60 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{gettext('Wedding invitation')}}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap-grid.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap-reboot.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/custom.css') }}">
+    <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/jquery-3.3.1.slim.min.js')}}"></script>
+    <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/popper.min.js')}}"></script>
+    <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/bootstrap.min.js')}}"></script>
 </head>
 
 <body>
-<section class="hero is-primary is-fullheight">
-
-    <div class="hero-head">
-        <nav class="navbar">
-            <div class="container">
-
-                <div id="navbarMenuHeroA" class="navbar-menu">
-                    <div class="navbar-end">
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            Home
-                        </a>
-                        {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                            Login
-                        </a>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
-                            Profile
-                        </a>
-                        <a href="{{ url_for('main.osa') }}" class="navbar-item">
-                            Respond
-                        </a>
-                        <a href="{{ url_for('main.schedule') }}" class="navbar-item">
-                            Itinerary
-                        </a>
-                        <a href="{{ url_for('main.gallery') }}" class="navbar-item">
-                            Gallery
-                        </a>
-                        <a href="{{ url_for('main.faq') }}" class="navbar-item">
-                            FAQ
-                        </a>
-                        {% if current_user.username == "admin" %}
-                        <a href="{{ url_for('main.responses') }}" class="navbar-item">
-                            Responses
-                        </a>
-                        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                            Signup
-                        </a>
-                        {% endif %}
-                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                            Logout
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
+<section class="hero is-fullheight">
+    <img src="/static/img/img1.png" class="banner">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">Home <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.osa') }}">Respond</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.schedule') }}">Itinerary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.faq') }}">Travel and accomodation</a>
+                    </li>
+                    {% if current_user.username == "admin" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.signup') }}">Add guests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.responses') }}">Responses</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </nav>
     </div>
-
     <div class="hero-body">
         <div class="container has-text-centered">
             {% block content %}
