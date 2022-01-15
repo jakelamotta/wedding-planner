@@ -12,33 +12,50 @@
           href="{{ url_for('static', filename='./css/bootstrap.css') }}">
     <link rel="stylesheet"
           type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap.rtl.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
           href="{{ url_for('static', filename='./css/bootstrap-grid.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap-utilities.css') }}">
     <link rel="stylesheet"
           type="text/css"
           href="{{ url_for('static', filename='./css/bootstrap-reboot.css') }}">
     <link rel="stylesheet"
           type="text/css"
           href="{{ url_for('static', filename='./css/custom.css') }}">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='./css/bootstrap-icons.css') }}">
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/jquery-3.3.1.slim.min.js')}}"></script>
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/popper.min.js')}}"></script>
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/bootstrap.min.js')}}"></script>
+    <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/bootstrap.bundle.min.js')}}"></script>
 </head>
 
 <body>
 <section class="hero is-fullheight">
     <img src="/static/img/wedding1.jpg" class="banner">
     <div class="container">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-light ms-3">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse"
+                    aria-controls="navbarTogglerDemo01"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>-->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item active">
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" href="{{ url_for('main.index') }}">Home <span
-                                class="sr-only">(current)</span></a>
+                                class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.osa') }}">Respond</a>
@@ -71,6 +88,8 @@
             {% endblock %}
         </div>
     </div>
+
+
 </section>
 </body>
 

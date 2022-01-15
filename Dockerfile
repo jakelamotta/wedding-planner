@@ -1,7 +1,6 @@
 FROM python:3.9-alpine
 RUN mkdir -p /app/wedding/templates
-RUN mkdir -p /app/static/fonts
-RUN mkdir /app/static/css
+RUN mkdir -p /app/static/css/fonts
 RUN mkdir /app/static/js
 RUN mkdir /app/static/img
 RUN mkdir -p /app/translations/se/LC_MESSAGES
@@ -18,7 +17,7 @@ ADD translations/se/LC_MESSAGES/messages.* translations/se/LC_MESSAGES/
 ADD wedding/templates/*.html /app/wedding/templates/
 ADD wedding/static/css/*.map /app/wedding/static/css/
 ADD wedding/static/css/*.css /app/wedding/static/css/
-ADD wedding/static/fonts/* /app/wedding/static/fonts/
+ADD wedding/static/css/fonts/* /app/wedding/static/css/fonts/
 ADD wedding/static/js/* /app/wedding/static/js/
 ADD wedding/static/img/wedding1.jpg /app/wedding/static/img/
 RUN pip3 install -r requirements.txt

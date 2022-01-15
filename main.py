@@ -40,16 +40,28 @@ def faq():
 @main.route('/submit_osa', methods=['POST'])
 @login_required
 def submit_osa():
+    guests = getGuests(current_user)
+    name = request.form.get('guest_name')
+    for guest in guests:
+        if guest.name == name:
+            guest.isAttending = request.form.get('attending_' + guest.name) != None
+            guest.nonAlcoholic = request.form.get('nonAlco_' + guest.name) != None
+            guest.foodPreferences = request.form.get('food_' + guest.name)
+            guest.song = request.form.get('song_' + guest.name)
+            guest.hasResponded = True
+            db.session.add(guest)
+
+    db.session.add(current_user)
+    db.session.commit()
+
+    flash('Response successfully submitted')
+    return render_template("osa.html", user=current_user, guests=guests)
+
+@main.route('/save_email', methods=['POST'])
+@login_required
+def save_email():
     current_user.email = request.form.get('email')
     guests = getGuests(current_user)
-
-    for guest in guests:
-        guest.isAttending = request.form.get('attending_' + guest.name) != None
-        guest.nonAlcoholic = request.form.get('nonAlco_' + guest.name) != None
-        guest.foodPreferences = request.form.get('food_' + guest.name)
-        guest.song = request.form.get('song_' + guest.name)
-        guest.hasResponded = True
-        db.session.add(guest)
 
 
     db.session.add(current_user)
