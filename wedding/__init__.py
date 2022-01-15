@@ -6,11 +6,29 @@ from flask_babel import Babel
 from . util import Config
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from logging.config import dictConfig
 
 # init SQLAlchemy so we can use it later in our models
 db = flask_sqlalchemy.SQLAlchemy()
 babel = Babel()
 config = Config.getConfig().config
+
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
+
 
 def create_app():
     app = Flask(__name__)

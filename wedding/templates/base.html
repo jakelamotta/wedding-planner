@@ -36,16 +36,22 @@
 
 <body>
 <section class="hero is-fullheight">
-    <img src="/static/img/wedding1.jpg" class="banner">
+    <img src="/static/img/wedding1.jpg" class="img-fluid">
     <div class="container">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light ms-3">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse"
-                    aria-controls="navbarTogglerDemo01"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <nav class="navbar fixed-top navbar-light bg-white ms-3">
+            <div class="col-sm-2">
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse"
+                        aria-controls="navbarTogglerDemo01"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <a class="nav-link" href="{{ url_for('main.index') }}"><i class="bi bi-house-fill"></i></a>
+            </div>
             <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -65,6 +71,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.faq') }}">Travel and accomodation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.gallery') }}">Gallery</a>
                     </li>
                     {% if current_user.username == "admin" %}
                     <li class="nav-item">

@@ -2,7 +2,7 @@ version: "3.9"
 services:
   web:
     container_name: wedding-ui
-    image: wedding:latest
+    image: banaj-johansson.se:5000/wedding-web:latest
     restart: unless-stopped
     ports:
       - "8004:8001"
@@ -17,14 +17,13 @@ services:
     container_name: wedding-db
     image: wedding-mariadb
     restart: unless-stopped
-    ports:
-      - "3316:3306"
     environment:
       - MARIADB_ROOT_PASSWORD=OKnZHcWzKDzHxPp0UbgJ
     volumes:
       - wedding-db:/var/lib/mysql
     networks:
       - wedding-net
+
 volumes:
   wedding-db:
     name: "wedding-db"

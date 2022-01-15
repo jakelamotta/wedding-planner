@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
+<h3 class="display-6 text-muted">
+    Please note that you will be able to change your response until the 31st of March
+</h3>
+<div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div class="notification is-success">

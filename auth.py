@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Guest
-from wedding import db, limiter
+from wedding import db, limiter, app
 from flask_login import login_user, logout_user, login_required
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -31,10 +31,13 @@ def login_post():
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
     if not user or not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
+        app.logger.info('%s failed to log in', user.username)
         return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
+    app.logger.info('%s successfully logged in', user.username)
+
     return redirect(url_for('main.index'))
 
 @auth.route('/signup')
@@ -77,4 +80,6 @@ def signup_post():
     db.session.commit()
 
     flash('User successfully created')
+    app.logger.info('%s successfully signed up', new_user.username)
+
     return redirect(url_for('auth.signup'))
