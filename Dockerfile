@@ -20,6 +20,6 @@ ADD wedding/static/css/*.map /app/wedding/static/css/
 ADD wedding/static/css/*.css /app/wedding/static/css/
 ADD wedding/static/fonts/* /app/wedding/static/fonts/
 ADD wedding/static/js/* /app/wedding/static/js/
-ADD wedding/static/img/img1.png /app/wedding/static/img/
+ADD wedding/static/img/wedding1.jpg /app/wedding/static/img/
 RUN pip3 install -r requirements.txt
 CMD ["gunicorn", "-w 1", "-b", "0.0.0.0:8001", "main:app"]

@@ -1,12 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title invitation">
-	{{gettext('While we adore your children, this time we wish to celebrate with our adult friends and family. Breast feeding children are of course welcome.')}}
-</h1>
-
 <div class="row">
-	<div class="col-md-12 input-group">
+	<div class="col-sm-12 input-group">
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		<div class="notification is-success">
@@ -16,55 +12,66 @@
 		{% endwith %}
 		<form action="{{ url_for('main.submit_osa') }}" method="post">
 			<div class="form-group row">
-				<div class="col-md-3">
+				<div class="text-left col-sm-6">
 					<label for="email">Email address (for communication):</label>
 					<input type="email"
-						   class="input is-large form-control"
+						   class="input form-control"
 						   id="email"
 						   name="email"
 						   value="{{user.email}}"
 						   placeholder="Email address">
 				</div>
 			</div>
+			<div class="form-group row">
+				<div class="text-left col-sm-4">
+					Name
+				</div>
+				<div class="text-left col-sm-3">
+					Food preferences
+				</div>
+				<div class="text-left col-sm-3">
+					Song suggestions
+				</div>
+				<div class="text-left col-sm-1">
+					No alcohol
+				</div>
+				<div class="text-left col-sm-1">
+					Attending
+				</div>
+			</div>
 			{% if guests != None %}
 				{% for guest in guests %}
 					<div class="form-group row">
-						<div class="col-md-3">
-							<label for="name_{{guest.name}}">Name</label>
-							<input type="text"  class="input is-large form-control" id="name_{{guest.name}}" name="name_{{guest.name}}" disabled="true"
+						<div class="col-sm-4">
+							<input type="text"  class="input form-control" id="name_{{guest.name}}" name="name_{{guest.name}}" disabled="true"
 							 value="{{guest.name}}">
 						</div>
-						<div class="col-md-3">
-							<label for="food_{{guest.name}}">Food preferences</label>
-							<input type="text"  class="input is-large form-control" id="food_{{guest.name}}" name="food_{{guest.name}}"
+						<div class="col-sm-3">
+							<input type="text"  class="input form-control" id="food_{{guest.name}}" name="food_{{guest.name}}"
 								   placeholder="E.g allergic to peanuts.."
 								   pattern="[A-Za-z ]+" value="{{guest.foodPreferences}}">
 						</div>
-						<div class="col-md-3">
-							<label for="song_{{guest.name}}">Song suggestion</label>
+						<div class="col-sm-3">
 							<input type="text"
-								   class="input is-large form-control"
+								   class="input form-control"
 								   id="song_{{guest.name}}"
 								   name="song_{{guest.name}}"
 								   placeholder="E.g Dont stop believin"
 								   value="{{guest.song}}"
 								   pattern="[A-Za-z ]+">
 						</div>
-						<div class="col-md-2">
-							<label for="nonAlco_{{guest.name}}">Alcohol-free</label>
+						<div class="col-sm-1">
 							<input type="checkbox" class="form-control" id="nonAlco_{{guest.name}}" name="nonAlco_{{guest.name}}" {{'checked' if guest.nonAlcoholic else ''}}>
 						</div>
-						<div class="col-md-1">
-							<label for="attending_{{guest.name}}">Attending</label>
+						<div class="col-sm-1">
 							<input type="checkbox" class="form-control" id="attending_{{guest.name}}" name="attending_{{guest.name}}" value="{{guest.isAttending}}"  aria-label={{'checked' if guest.isAttending else ''}}>
 						</div>
 					</div>
 				{% endfor %}
 			{% endif %}
-			<div class="col-md-2">
-				<button type="submit" class="btn btn-primary btn-lg">Send</button>
+			<div class="col-sm-2">
+				<button type="submit" class="btn btn-primary">Send</button>
 			</div>
-
 		</form>
 	</div>
 </div>
