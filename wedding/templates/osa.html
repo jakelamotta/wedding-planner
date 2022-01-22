@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 class="display-6 text-muted">
+<h6 class="display-6 text-muted">
     Please note that you will be able to change your response until the 31st of March
-</h3>
-<div class="row mt-5 ">
+</h6><div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="notification is-success">
+    <div class="notification is-success ">
         {{ messages[0] }}.
     </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="notification is-danger col-md-6 col-md-offset-3 text-center">
+            {{ error }}
+        </div>
     {% endif %}
     {% endwith %}
     <form action="{{ url_for('main.save_email') }}" class="row" method="post">
         <div class="col-sm-6 text-start">
-            <label for="email">Email address (for communication):</label>
+            {% if user.email == None or user.email == "" %}
+                <label for="email">Enter email address to continue (will be used for communication):</label>
+            {% else %}
+                <label for="email">Email address (will be used for communication):</label>
+            {% endif %}
+
             <input type="email"
                    class="input form-control"
                    id="email"
@@ -24,13 +34,13 @@
 
         </div>
         <div class="col-sm-3 mt-4">
-            <button type="submit" class="btn btn-primary">Save email</button>
+            <button id="emailButton" type="submit" class="btn btn-primary">Save email</button>
         </div>
     </form>
 </div>
 
-{% if guests != None %}
-<div class="accordion mt-5" id="weddingAccordion">
+{% if guests != None and user.email != None and user.email != "" %}
+<div class="accordion mt-5 transition-delay" id="weddingAccordion">
     {% for guest in guests %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="heading_{{guest.id}}">
@@ -38,7 +48,7 @@
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#body_{{guest.id}}"
-                    aria-expanded="false"
+                    aria-expanded='true'
                     aria-controls="body_{{guest.id}}">
                 <div class="col-sm-3 text-center">
                     {% if not guest.nonAlcoholic %}
@@ -52,7 +62,12 @@
                 </div>
             </button>
         </h2>
-        <div id="body_{{guest.id}}" class="accordion-collapse collapse"
+        <div id="body_{{guest.id}}"
+             {% if guest.id == guests[0].id %}
+                class="accordion-collapse collapse show"
+             {% else %}
+                class="accordion-collapse collapse"
+             {% endif %}
              aria-labelledby="heading_{{guest.id}}"
              data-bs-parent="#weddingAccordion">
             <div class="accordion-body">
@@ -63,7 +78,7 @@
                             <input type="text" class="input form-control" id="food_{{guest.name}}"
                                    name="food_{{guest.name}}"
                                    placeholder="E.g allergic to peanuts.."
-                                   pattern="[A-Za-z ]+"
+                                   pattern="^[a-zA-Z\.\-, ]+$"
                                    {% if guest.foodPreferences != "None" %}value="{{guest.foodPreferences}}"{% endif %}>
                         </div>
                         <div class="col-sm-6 text-start">
@@ -74,7 +89,7 @@
                                    name="song_{{guest.name}}"
                                    placeholder="E.g Dont stop believin"
                                    {% if guest.song != "None" %}value="{{guest.song}}"{% endif %}
-                                   pattern="[A-Za-z ]+">
+                                   pattern="^[a-zA-Z\.\-, ]+$">
                         </div>
                     </div>
                     <div class="row mt-3">

@@ -1,4 +1,36 @@
-.banner img {
-    width:100%;
-    height: 90px;
+.banner {
+    padding-top:40px;
+}
+
+.navbar-custom {
+    background-color:rgba(255,255,255,0.5);
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    background-color:rgba(255,255,255,0.5);
+}
+
+/* change the link color and padding  */
+.navbar-custom .navbar-nav .nav-link {
+    background-color:rgba(255,255,255,0.5);
+}
+
+.navbar-custom .navbar-light .navbar-brand:hover, .navbar-custom .navbar-light .navbar-brand:focus {
+    background-color: rgba(192,192,192);
+}
+
+/* for dropdown only - change the color of droodown */
+.navbar-custom .dropdown-menu {
+    background-color:rgba(255,255,255,0.5);
+}
+.navbar-custom .dropdown-item {
+    color: #ffffff;
+    background-color:rgba(255,255,255,0.5);
+}
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .dropdown-item:focus {
+    color: #333333;
+    background-color:rgba(255,255,255,0.5);
 }

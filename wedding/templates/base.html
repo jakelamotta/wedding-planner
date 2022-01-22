@@ -36,9 +36,8 @@
 
 <body>
 <section class="hero is-fullheight">
-    <img src="/static/img/wedding1.jpg" class="img-fluid">
     <div class="container">
-        <nav class="navbar fixed-top navbar-light bg-white ms-3">
+        <nav class="navbar-text navbar-light navbar-nav navbar-brand fixed-top w-100 navbar-custom">
             <div class="col-sm-2">
                 <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse"
@@ -48,9 +47,6 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
-            <div class="col-sm-6">
-                <a class="nav-link" href="{{ url_for('main.index') }}"><i class="bi bi-house-fill"></i></a>
             </div>
             <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,6 +87,7 @@
             </div>
         </nav>
     </div>
+    <img src="/static/img/wedding1.jpg" class="img-fluid banner">
     <div class="hero-body">
         <div class="container has-text-centered">
             {% block content %}

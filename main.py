@@ -4,8 +4,11 @@ from flask_login import login_required, current_user
 from models import User, Guest
 from auth import auth as auth_blueprint
 from flask_babel import gettext, ngettext
+import re
 
 main = Blueprint('main', __name__)
+whitelistName = "^[a-zA-Z\.\-, ]+$"
+whitelistEmail = "^[a-zA-Z0-9@\.]+$"
 
 @main.route('/')
 @login_required
@@ -46,8 +49,14 @@ def submit_osa():
         if guest.name == name:
             guest.isAttending = request.form.get('attending_' + guest.name) != None
             guest.nonAlcoholic = request.form.get('nonAlco_' + guest.name) != None
-            guest.foodPreferences = request.form.get('food_' + guest.name)
-            guest.song = request.form.get('song_' + guest.name)
+
+            if re.match(whitelistName,request.form.get('food_' + guest.name)) or re.match(whitelistName,request.form.get('song_' + guest.name)):
+                guest.foodPreferences = request.form.get('food_' + guest.name)
+                guest.song = request.form.get('song_' + guest.name)
+            else:
+                error = "Disallowed characters used in form"
+                return render_template("osa.html", user=current_user, guests=guests, error=error)
+
             guest.hasResponded = True
             db.session.add(guest)
 
@@ -98,7 +107,6 @@ def getFormattedGuests(current_user):
 # add to you main app code
 @babel.localeselector
 def get_locale():
-    print(request.accept_languages.best_match(current_app.config['LANGUAGES'].keys()))
     return 'se'
 
 @babel.timezoneselector

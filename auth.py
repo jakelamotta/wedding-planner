@@ -5,8 +5,10 @@ from wedding import db, limiter, app
 from flask_login import login_user, logout_user, login_required
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import re
 
 auth = Blueprint('auth', __name__)
+whitelistName= "^[a-zA-Z\.\-, ]+$"
 
 @auth.route('/logout')
 @login_required
@@ -21,7 +23,13 @@ def login():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
+
     username = request.form.get('username')
+    if not re.match(whitelistName,username):
+        flash('Username contains disallowed characters.')
+        app.logger.error('%s tried logging in with bad characters', username)
+        return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
+
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
