@@ -63,7 +63,7 @@ def submit_osa():
     db.session.add(current_user)
     db.session.commit()
 
-    flash('Response successfully submitted')
+    flash('Response successfully updated')
     app.logger.info('Updated response for guest %s', name)
 
     return render_template("osa.html", user=current_user, guests=guests)
@@ -78,7 +78,7 @@ def save_email():
     db.session.add(current_user)
     db.session.commit()
 
-    flash('Response successfully submitted')
+    flash('Email saved successfully')
 
     return render_template("osa.html", user=current_user, guests=guests)
 
