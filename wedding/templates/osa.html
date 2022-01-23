@@ -121,4 +121,13 @@
     {% endfor %}
 </div>
 {% endif %}
+
+<script style="text/javascript">
+    $(document).ready(function() {
+            var email = '{{ user.email }}';
+            if (email != undefined && email.length > 0){
+                $(document).scrollTop($(document).height());
+            }
+        });
+</script>
 {% endblock %}
