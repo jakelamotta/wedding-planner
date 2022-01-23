@@ -24,7 +24,7 @@ ADD wedding/static/img/gallery1.jpg /app/wedding/static/img/
 ADD wedding/static/img/gallery2.jpg /app/wedding/static/img/
 ADD wedding/static/img/gallery3.jpg /app/wedding/static/img/
 ADD wedding/static/img/gallery4.jpg /app/wedding/static/img/
-ADD wedding/static/img/gallery5.jpg /app/wedding/static/img/
+ADD wedding/static/img/gallery7.jpg /app/wedding/static/img/
 ADD wedding/static/img/gallery6.jpg /app/wedding/static/img/
 RUN pip3 install -r requirements.txt
 CMD ["gunicorn", "-w 1", "-b", "0.0.0.0:8001", "main:app"]

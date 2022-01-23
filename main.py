@@ -20,7 +20,7 @@ def index():
 def osa():
     return render_template("osa.html", user=current_user, guests=getGuests(current_user))
 
-@main.route('/gallery', methods=['GET'])
+@main.route('/our_story', methods=['GET'])
 @login_required
 def gallery():
     return render_template("gallery.html")
