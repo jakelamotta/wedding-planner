@@ -73,23 +73,11 @@
             <div class="accordion-body">
                 <form action="{{ url_for('main.submit_osa') }}" method="post">
                     <div class="row">
-                        <div class="col-sm-6 text-start">
-                            <label for="food_{{guest.name}}" class="control-label">Food preferences</label>
-                            <input type="text" class="input form-control" id="food_{{guest.name}}"
-                                   name="food_{{guest.name}}"
-                                   placeholder="E.g allergic to peanuts.."
-                                   pattern="^[a-zA-Z\.\-, ]+$"
-                                   {% if guest.foodPreferences != "None" %}value="{{guest.foodPreferences}}"{% endif %}>
-                        </div>
-                        <div class="col-sm-6 text-start">
-                            <label for="song_{{guest.name}}" class="">Suggest a song for the party</label>
-                            <input type="text"
-                                   class="input form-control"
-                                   id="song_{{guest.name}}"
-                                   name="song_{{guest.name}}"
-                                   placeholder="E.g Dont stop believin"
-                                   {% if guest.song != "None" %}value="{{guest.song}}"{% endif %}
-                                   pattern="^[a-zA-Z\.\-, ]+$">
+                        <div class="col-sm-4 text-start">
+                            <input type="checkbox" class="form-check-input" id="attending_{{guest.name}}"
+                                   name="attending_{{guest.name}}"
+                                   {% if guest.isAttending %}checked="checked"{% endif %}>
+                            <label for="attending_{{guest.name}}" class="">Is attending</label>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -100,12 +88,24 @@
                             <label for="nonAlco_{{guest.name}}" class="">No alcohol</label>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-sm-4 text-start">
-                            <input type="checkbox" class="form-check-input" id="attending_{{guest.name}}"
-                                   name="attending_{{guest.name}}"
-                                   {% if guest.isAttending %}checked="checked"{% endif %}>
-                            <label for="attending_{{guest.name}}" class="">Is attending</label>
+                    <div class="row">
+                        <div class="col-sm-6 text-start mt-3">
+                            <label for="food_{{guest.name}}" class="control-label">Food preferences</label>
+                            <input type="text" class="input form-control" id="food_{{guest.name}}"
+                                   name="food_{{guest.name}}"
+                                   placeholder="E.g allergic to fish, vegan, etc"
+                                   pattern="^[a-zA-Z\.\-, ]+$"
+                                   {% if guest.foodPreferences != "None" %}value="{{guest.foodPreferences}}"{% endif %}>
+                        </div>
+                        <div class="col-sm-6 text-start mt-3">
+                            <label for="song_{{guest.name}}" class="">Suggest a song for the party</label>
+                            <input type="text"
+                                   class="input form-control"
+                                   id="song_{{guest.name}}"
+                                   name="song_{{guest.name}}"
+                                   placeholder="E.g Dont stop believin"
+                                   {% if guest.song != "None" %}value="{{guest.song}}"{% endif %}
+                                   pattern="^[a-zA-Z\.\-, ]+$">
                         </div>
                     </div>
                     <div class="row mt-3">
