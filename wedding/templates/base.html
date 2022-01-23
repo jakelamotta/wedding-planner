@@ -68,10 +68,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.faq') }}">Travel and accomodation</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.gallery') }}">Gallery</a>
-                    </li>
                     {% if current_user.username == "admin" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.gallery') }}">Our story</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.signup') }}">Add guests</a>
                     </li>
