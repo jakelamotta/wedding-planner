@@ -91,9 +91,6 @@ def getAllGuests():
     return guests
 
 def getFormattedGuests(current_user):
-    if (current_user.name == "admin"):
-        return "admin"
-
     guests = getGuests(current_user)
 
     if (len(guests) == 1):
