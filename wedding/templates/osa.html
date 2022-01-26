@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h6 class="display-6 text-muted">
+<h6 class="display-6 text-muted fs-3">
     Please note that you will be able to change your response until the 31st of March
 </h6><div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
@@ -29,6 +29,7 @@
                    class="input form-control"
                    id="email"
                    name="email"
+                   required="true"
                    value="{{user.email}}"
                    placeholder="Email address">
 

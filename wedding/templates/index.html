@@ -2,61 +2,110 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 class="display-6">
-	<i>Dear {{guests}}</i>
-</h3>
+<div class="col-md-8 offset-md-2">
+	<p class="display-6 fs-4">
+		{{gettext('It is with great pleasure we invite you')}}
+	</p>
 
-<h3 class="display-6 mt-5">
-	<i>{{gettext('The honor of your presence is requested at the wedding ceremony and reception of Vera and Kristian')}}</i>
-</h3>
+	<p class="display-6 mt-3 fs-2 fst-italic">
+		{{guests}}
+	</p>
 
-<h3 class="display-6 mt-5">
-	<i>{{gettext('Saturday the 11th of June 2022 at the church of Saltvik in Åland, at 3pm')}}</i>
-</h3>
+	<p class="display-6 mt-3 fs-4">
+		{{gettext('to the forthcoming wedding of')}}
+	</p>
 
-<hr class="mt-5"/>
+	<p class="display-6 mt-3 fs-2 fst-italic">
+		{{gettext('Pranvera Banaj & Kristian Johansson')}}
+	</p>
 
-<h3 class="mt-5 text-muted">
-	{{gettext('While we adore your children, this time we wish to celebrate with our adult friends and family (breastfeeding children are of course welcome).')}}
-</h3>
+	<p class="display-6 mt-3 fs-4">
+		{{gettext('Saturday the 11th of June 2022 at the church of Saltvik in Åland, at 3pm')}}
+	</p>
 
-<hr class="mt-5"/>
 
-<h3 class="mt-5 text-muted">
-	{{gettext('If you wish to make a speech or any other contribution to the itinerary please inform either toast master or toast madame:')}}
-</h3>
+	<hr class="mt-4"/>
 
-<h3 class="text-muted">
-	{{gettext('Niclas Karlsson (+358 457 374 97 90, niclas.karlsson@hotmail.com)')}}
-</h3>
+	<p class="mt-4 display-6 text-muted fs-4">
+		{{gettext('While we love your children, this time we wish to celebrate with our adult friends and family (breastfeeding children are of course welcome).')}}
+	</p>
 
-<h3 class="text-muted">
-	{{gettext('Altina Banaj (+355 67 404 0840, altinabanaj@hotmail.com).')}}
-</h3>
+	<hr class="mt-4"/>
 
-<hr class="mt-5"/>
+	<p class="mt-4 display-6 text-muted fs-4">
+		{{gettext('Please notify either toastmaster or toastmadame in advance if you wish to make a speech or any other
+		contribution to the itinerary:')}}
+	</p>
 
-<h3 class="mt-5 text-muted">
-	{{gettext('Instead of bringing gifts we would much appreciate a contribution to our planned honeymoon trip. Bank transfer
-	or swish is encouraged but cash will also be accepted at the reception. More details regarding this will be presented later on.')}}
-</h3>
+	<div class="text-muted">
+		<b>Niclas Karlsson</b>
+	</div>
+	<div class="text-muted">
+		<div>+358 457 37 49 790</div>
+	</div>
+	<div class="text-muted">
+		<div>niclas.karlsson@hotmail.com</div>
+	</div>
 
-<hr class="mt-5"/>
 
-<h3 class="mt-5 text-muted">
-	{{gettext('Dress code: Elegant dress')}}
-</h3>
+	<div class="text-muted mt-3">
+		<b>Altina Banaj</b>
+	</div>
+	<div class="text-muted">
+		<div>+355 67 404 0840</div>
+	</div>
+	<div class="text-muted">
+		<div>altinabanaj@hotmail.com</div>
+	</div>
 
-<hr class="mt-5"/>
+	<hr class="mt-4"/>
 
-<h3 class="mt-5 text-muted">
-	Kindly respond by the 31st of March
-</h3>
+	<p class="mt-4 display-6 text-muted fs-4">
+		{{gettext('Your presence is all we wish for. But if you still want to celebrate our day with a gift, we appreciate
+		a contribution to our honeymoon.')}}
+	</p>
 
-<hr class="mt-5"/>
+	<p class="display-6 text-muted fs-4">
+		{{gettext('Over the years, we have collected more stuff than we can make room for. But a contribution
+		to our honeymoon is much appreciated, big or small!')}}
+	</p>
 
-<h3 class="mt-5 text-muted">
-	{{gettext('More detailed information about the entire weekend will be coming shortly. Stay tuned!')}}
-</h3>
+	<div class="text-muted">
+		<b>Bank account</b>
+	</div>
+	<div class="text-muted">
+		<div>FI0855780420189632</div>
+	</div>
+
+
+	<div class="text-muted">
+		<b>Swish</b>
+	</div>
+	<div class="text-muted">
+		<div>0765546189</div>
+	</div>
+
+	<p class="display-6 text-muted fs-4 mt-3">
+		{{gettext('Or there will be a "moneybox" at the reception')}}
+	</p>
+
+	<hr class="mt-4"/>
+
+	<p class="mt-4 display-6 text-muted fs-4">
+		{{gettext('Dress code: Elegant dress')}}
+	</p>
+
+	<hr class="mt-4"/>
+
+	<p class="mt-4 display-6 text-muted fs-4">
+		Kindly respond by the 31st of March
+	</p>
+
+	<hr class="mt-4"/>
+
+	<p class="mt-4 display-6 text-muted fs-4">
+		{{gettext('More detailed information about the entire weekend will be coming shortly. Stay tuned!')}}
+	</p>
+</div>
 {% endblock %}
 <br/>
