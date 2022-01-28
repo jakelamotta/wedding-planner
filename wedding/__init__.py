@@ -3,7 +3,7 @@ import flask_sqlalchemy
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_babel import Babel
-from . util import Config
+from . util import Config, EmailHelper
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from logging.config import dictConfig

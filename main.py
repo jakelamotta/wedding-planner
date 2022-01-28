@@ -1,5 +1,5 @@
-from flask import Blueprint,render_template, request, redirect, flash, current_app
-from wedding import db, babel, app, login_manager
+from flask import Blueprint,render_template, request, redirect, flash, current_app, url_for
+from wedding import db, babel, app, login_manager, EmailHelper
 from flask_login import login_required, current_user
 from models import User, Guest
 from auth import auth as auth_blueprint
@@ -66,7 +66,15 @@ def submit_osa():
     flash('Response successfully updated')
     app.logger.info('Updated response for guest %s', name)
 
-    return render_template("osa.html", user=current_user, guests=guests)
+    result = sendEmail(current_user.email, getFormattedGuests(current_user), guests)
+
+    if not result:
+        error = "Could not send email, something went wrong"
+        return render_template("osa.html", user=current_user, guests=guests, error=error)
+
+    flash('Email confirmation sent')
+
+    return redirect(url_for("main.osa"))
 
 @main.route('/save_email', methods=['POST'])
 @login_required
@@ -95,11 +103,50 @@ def getFormattedGuests(current_user):
 
     if (len(guests) == 1):
         return guests[0].name
-    elif (len(guests) == 2):
-        return guests[0].name + " and " + guests[1].name
+    elif (len(guests) > 1):
+        first = True
+        formattedString=""
+        for guest in guests:
+            if first:
+                formattedString = guest.name
+                first = False
+            else:
+                formattedString = formattedString + " & " + guest.name
+        return formattedString
     else:
-        return guests[0].name + ", " + guests[1].name + " and " + guests[2].name
+        return current_user.username
 
+def sendEmail(recipient, name, guests):
+    guestListForEmail = getGuestListForEmail(guests)
+    message = """From: Vera & Kristian  <noreply@banaj-johansson.se>
+To: To Person <""" + recipient + """>
+Subject: Wedding of Vera and Kristian
+
+Hello """ + name + """,
+
+Your response have been updated, please verify that the information is correct.
+
+""" + guestListForEmail + """
+
+Hugs,
+Vera & Kristian
+"""
+    app.logger.info('Sending email to %s', recipient)
+    helper = EmailHelper()
+    return helper.sendEmail(recipient, message)
+
+def getGuestListForEmail(guests):
+    guestTable = []
+    for guest in guests:
+        guestList = [guest.name, "No", "Yes", guest.song, guest.foodPreferences]
+        if guest.isAttending:
+            guestList[1] = "Yes"
+        if guest.nonAlcoholic:
+            guestList[1] = "No"
+
+        guestTable.append(guestList)
+
+    return tabulate(guestTable, headers=["Name","Will be attending", "Alcohol", "Song choice", "Food preferences"])
 
 # add to you main app code
 @babel.localeselector

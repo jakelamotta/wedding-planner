@@ -1,4 +1,5 @@
 import os
+import smtplib
 
 class Config():
 
@@ -23,6 +24,21 @@ class Config():
             self.config["DB_PORT"] = os.environ['DB_PORT']
         else:
             self.config["DB_PORT"] = "3306"
+
+        if ("SMTP_USERNAME" in os.environ):
+            self.config["SMTP_USERNAME"] = os.environ['SMTP_USERNAME']
+        else:
+            self.config["SMTP_USERNAME"] = "test"
+
+        if ("SMTP_PASSWORD" in os.environ):
+            self.config["SMTP_PASSWORD"] = os.environ['SMTP_PASSWORD']
+        else:
+            self.config["SMTP_PASSWORD"] = "test"
+
+        if ("SMTP_SERVER" in os.environ):
+            self.config["SMTP_SERVER"] = os.environ['SMTP_SERVER']
+        else:
+            self.config["SMTP_SERVER"] = "test"
         
     def getConfig():
 
@@ -30,3 +46,26 @@ class Config():
             Config.config = Config()
 
         return Config.config
+
+class EmailHelper():
+
+    def __init__(self):
+        self.config = Config.getConfig().config
+        self.smtpServer = self.config["SMTP_SERVER"]
+        self.sender = "noreply@banaj-johansson.se"
+
+    def sendEmail(self,recipient, message):
+        try:
+           username = self.config["SMTP_USERNAME"]
+           if (username == "test"):
+            print(message)
+            return True
+
+           smtpObj = smtplib.SMTP(self.smtpServer, port=587)
+           smtpObj.starttls()
+           smtpObj.login(username, config["SMTP_PASSWORD"])
+           result = smtpObj.sendmail(self.sender, recipient, message)
+        except smtplib.SMTPException:
+           return False
+
+        return True

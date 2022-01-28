@@ -6,9 +6,11 @@
 </h6><div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="notification is-success ">
-        {{ messages[0] }}.
-    </div>
+        {% for msg in messages %}
+            <div class="notification is-success ">
+                {{ msg }}.
+            </div>
+        {% endfor %}
     {% endif %}
 
     {% if error %}
@@ -126,7 +128,8 @@
 <script style="text/javascript">
     $(document).ready(function() {
             var email = '{{ user.email }}';
-            if (email != undefined && email.length > 0){
+            var messages = '{{ get_flashed_messages() }}'
+            if (email != undefined && email.length > 0 && (messages === undefined || messages.length < 3 || messages.includes("Email saved succ"))){
                 $(document).scrollTop($(document).height());
             }
         });
