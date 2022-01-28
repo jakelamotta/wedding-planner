@@ -97,7 +97,7 @@
                             <input type="text" class="input form-control" id="food_{{guest.name}}"
                                    name="food_{{guest.name}}"
                                    placeholder="E.g allergic to fish, vegan, etc"
-                                   pattern="^[a-zA-Z\.\-, ]+$"
+                                   pattern="^[ÅåÄäÖöa-zA-Z\.\-, ]+$"
                                    {% if guest.foodPreferences != "None" %}value="{{guest.foodPreferences}}"{% endif %}>
                         </div>
                         <div class="col-sm-6 text-start mt-3">
@@ -108,7 +108,7 @@
                                    name="song_{{guest.name}}"
                                    placeholder="E.g Dont stop believin"
                                    {% if guest.song != "None" %}value="{{guest.song}}"{% endif %}
-                                   pattern="^[a-zA-Z\.\-, ]+$">
+                                   pattern="^[ÅåÄäÖöa-zA-Z\.\-, ]+$">
                         </div>
                     </div>
                     <div class="row mt-3">

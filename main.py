@@ -5,10 +5,11 @@ from models import User, Guest
 from auth import auth as auth_blueprint
 from flask_babel import gettext, ngettext
 import re
+from tabulate import tabulate
 
 main = Blueprint('main', __name__)
-whitelistName = "^[a-zA-Z\.\-, ]+$"
-whitelistEmail = "^[a-zA-Z0-9@\.]+$"
+whitelistName = "^[ÅåÄäÖöa-zA-Z\.\-, ]+$"
+whitelistEmail = "^[ÅåÄäÖöa-zA-Z0-9@\.]+$"
 
 @main.route('/')
 @login_required
