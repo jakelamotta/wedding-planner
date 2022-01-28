@@ -64,8 +64,8 @@ class EmailHelper():
            smtpObj = smtplib.SMTP(self.smtpServer, port=587)
            smtpObj.starttls()
            smtpObj.login(username, self.config["SMTP_PASSWORD"])
-           result = smtpObj.sendmail(self.sender, recipient, message)
-        except smtplib.SMTPException:
+           result = smtpObj.sendmail(self.sender, recipient, message.encode("utf-8"))
+        except Exception:
            print(smtplib.SMTPException)
            return False
 
