@@ -10,8 +10,13 @@ services:
       - DB_PASSWORD=OKnZHcWzKDzHxPp0UbgJ
       - DB_HOST=db
       - DB_PORT=3306
+      - SMTP_PASSWORD=
+      - SMTP_USERNAME=
+      - SMTP_SERVER=
     networks:
       - wedding-net
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
   db:
     hostname: db
     container_name: wedding-db
