@@ -51,8 +51,12 @@ def submit_osa():
             guest.isAttending = request.form.get('attending_' + guest.name) != None
             guest.nonAlcoholic = request.form.get('nonAlco_' + guest.name) != None
 
-            if re.match(whitelistName,request.form.get('food_' + guest.name)) or re.match(whitelistName,request.form.get('song_' + guest.name)):
+            food = request.form.get('food_' + guest.name)
+            song = request.form.get('song_' + guest.name)
+
+            if food == "" or re.match(whitelistName,food):
                 guest.foodPreferences = request.form.get('food_' + guest.name)
+            elif song == "" or re.match(whitelistName,song):
                 guest.song = request.form.get('song_' + guest.name)
             else:
                 error = "Disallowed characters used in form"
@@ -128,6 +132,10 @@ Hello """ + name + """,
 Your response have been updated, please verify that the information is correct.
 
 """ + guestListForEmail + """
+
+There will be more information to come on the website so please keep yourself updated.
+
+Hope to see you on the weekend of the 11th of June.
 
 Hugs,
 Vera & Kristian

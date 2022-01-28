@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h6 class="display-6 text-muted fs-3">
+<p class="display-6 text-muted fs-3">
     Please note that you will be able to change your response until the 31st of March
-</h6><div class="row mt-5 ">
+</p>
+<div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
@@ -32,7 +33,7 @@
                    id="email"
                    name="email"
                    required="true"
-                   value="{{user.email}}"
+                   {% if user.email != None %}value="{{user.email}}"{% endif %}
                    placeholder="Email address">
 
         </div>
@@ -41,8 +42,10 @@
         </div>
     </form>
 </div>
-
 {% if guests != None and user.email != None and user.email != "" %}
+<p class="display-6 text-muted fs-3 mt-4">
+    Remember to RSVP for each guest
+</p>
 <div class="accordion mt-5 transition-delay" id="weddingAccordion">
     {% for guest in guests %}
     <div class="accordion-item">
@@ -54,13 +57,18 @@
                     aria-expanded='true'
                     aria-controls="body_{{guest.id}}">
                 <div class="col-sm-3 text-center">
-                    {% if not guest.nonAlcoholic %}
+                    {% if guest.nonAlcoholic != None and not guest.nonAlcoholic %}
                         <i class="bi bi-cup-straw"></i>
                     {% endif %}
 
                     {% if guest.isAttending %}
                         <i class="bi bi-check-lg"></i>
                     {% endif %}
+
+                    {% if guest.isAttending == None %}
+                        <i class="bi bi-question"></i>
+                    {% endif %}
+
                     {{guest.name}}
                 </div>
             </button>
@@ -98,7 +106,7 @@
                                    name="food_{{guest.name}}"
                                    placeholder="E.g allergic to fish, vegan, etc"
                                    pattern="^[ÅåÄäÖöa-zA-Z\.\-, ]+$"
-                                   {% if guest.foodPreferences != "None" %}value="{{guest.foodPreferences}}"{% endif %}>
+                                   {% if guest.foodPreferences != None %}value="{{guest.foodPreferences}}"{% endif %}>
                         </div>
                         <div class="col-sm-6 text-start mt-3">
                             <label for="song_{{guest.name}}" class="">Suggest a song for the party</label>
@@ -107,7 +115,7 @@
                                    id="song_{{guest.name}}"
                                    name="song_{{guest.name}}"
                                    placeholder="E.g Dont stop believin"
-                                   {% if guest.song != "None" %}value="{{guest.song}}"{% endif %}
+                                   {% if guest.song != None %}value="{{guest.song}}"{% endif %}
                                    pattern="^[ÅåÄäÖöa-zA-Z\.\-, ]+$">
                         </div>
                     </div>
