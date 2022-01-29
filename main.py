@@ -148,9 +148,9 @@ def getGuestListForEmail(guest):
 
 
 def createConfirmationMessage(recipient, name, guests):
-    initPart = """From: Vera & Kristian  <noreply@banaj-johansson.se>
-    To: To Person <""" + recipient + """>
-    Subject: Wedding of Vera and Kristian
+    initPart = """From: Vera & Kristian <no-reply@banaj-johansson.se>
+To: To Person <""" + recipient + """>
+Subject: Wedding of Vera and Kristian
 
     Hello """ + name + """,
 
