@@ -46,6 +46,7 @@ def faq():
 def submit_osa():
     guests = getGuests(current_user)
     name = request.form.get('guest_name')
+    allGuestsRsvped = True
     for guest in guests:
         if guest.name == name:
             guest.isAttending = request.form.get('attending_' + guest.name) != None
@@ -61,9 +62,9 @@ def submit_osa():
             else:
                 error = "Disallowed characters used in form"
                 return render_template("osa.html", user=current_user, guests=guests, error=error)
-
             guest.hasResponded = True
             db.session.add(guest)
+        allGuestsRsvped = allGuestsRsvped and guest.hasResponded
 
     db.session.add(current_user)
     db.session.commit()
@@ -71,13 +72,12 @@ def submit_osa():
     flash('Response successfully updated')
     app.logger.info('Updated response for guest %s', name)
 
-    result = sendEmail(current_user.email, getFormattedGuests(current_user), guests)
-
-    if not result:
-        error = "Could not send email, something went wrong"
-        return render_template("osa.html", user=current_user, guests=guests, error=error)
-
-    flash('Email confirmation sent')
+    if allGuestsRsvped:
+        result = sendEmail(current_user.email, getFormattedGuests(current_user), guests)
+        if not result:
+            error = "Could not send email, something went wrong"
+            return render_template("osa.html", user=current_user, guests=guests, error=error)
+        flash('Email confirmation sent')
 
     return redirect(url_for("main.osa"))
 
@@ -86,13 +86,9 @@ def submit_osa():
 def save_email():
     current_user.email = request.form.get('email')
     guests = getGuests(current_user)
-
-
     db.session.add(current_user)
     db.session.commit()
-
     flash('Email saved successfully')
-
     return render_template("osa.html", user=current_user, guests=guests)
 
 def getGuests(current_user):
@@ -122,40 +118,60 @@ def getFormattedGuests(current_user):
         return current_user.username
 
 def sendEmail(recipient, name, guests):
-    guestListForEmail = getGuestListForEmail(guests)
-    message = """From: Vera & Kristian  <noreply@banaj-johansson.se>
-To: To Person <""" + recipient + """>
-Subject: Wedding of Vera and Kristian
-
-Hello """ + name + """,
-
-Your response have been updated, please verify that the information is correct.
-
-""" + guestListForEmail + """
-
-There will be more information to come on the website so please keep yourself updated.
-
-Hope to see you on the weekend of the 11th of June.
-
-Hugs,
-Vera & Kristian
-"""
+    message = createConfirmationMessage(recipient, name, guests)
     app.logger.info('Sending email to %s', recipient)
     helper = EmailHelper()
     return helper.sendEmail(recipient, message)
 
-def getGuestListForEmail(guests):
-    guestTable = []
+def getGuestListForEmail(guest):
+    attendString = "No"
+    alcoholString = "Yes"
+    songString = ""
+    foodString = ""
+    if guest.isAttending:
+        attendString = "Yes"
+    if guest.nonAlcoholic:
+        alcoholString = "No"
+    if guest.song != None:
+        songString = guest.song
+    if guest.foodPreferences != None:
+        foodString = guest.foodPreferences
+
+    formattedGuest = """
+
+    Name: """ + guest.name + """
+    Is attending: """ + attendString  + """
+    Alcohol: """ + alcoholString  + """
+    Song suggested for the party: """ + songString  + """
+    Possible food preferences: """ + foodString
+
+    return formattedGuest
+
+
+def createConfirmationMessage(recipient, name, guests):
+    initPart = """From: Vera & Kristian  <noreply@banaj-johansson.se>
+    To: To Person <""" + recipient + """>
+    Subject: Wedding of Vera and Kristian
+
+    Hello """ + name + """,
+
+    Your response have been updated, please verify that the information is correct and also remember to RSVP for each guest."""
+
+    guestList = ""
     for guest in guests:
-        guestList = [guest.name, "No", "Yes", guest.song, guest.foodPreferences]
-        if guest.isAttending:
-            guestList[1] = "Yes"
-        if guest.nonAlcoholic:
-            guestList[1] = "No"
+        guestList = guestList + getGuestListForEmail(guest)
 
-        guestTable.append(guestList)
+    endPart = """
 
-    return tabulate(guestTable, headers=["Name","Will be attending", "Alcohol", "Song choice", "Food preferences"])
+    There will be more information to come on the website so please keep yourself updated.
+
+    We hope to see YOU on the weekend of the 11th of June.
+
+    Love,
+    Vera & Kristian
+    """
+
+    return initPart + guestList + endPart
 
 # add to you main app code
 @babel.localeselector
