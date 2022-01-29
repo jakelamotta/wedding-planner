@@ -43,10 +43,10 @@
     </form>
 </div>
 {% if guests != None and user.email != None and user.email != "" %}
-<p class="display-6 text-muted fs-3 mt-4">
+<p class="display-6 text-muted fs-3 mt-5">
     Remember to RSVP for each guest
 </p>
-<div class="accordion mt-5 transition-delay" id="weddingAccordion">
+<div class="accordion mt-2 transition-delay" id="weddingAccordion">
     {% for guest in guests %}
     <div class="accordion-item">
         <h2 class="accordion-header" id="heading_{{guest.id}}">
@@ -65,7 +65,7 @@
                         <i class="bi bi-check-lg"></i>
                     {% endif %}
 
-                    {% if guest.isAttending == None %}
+                    {% if not guest.hasResponded %}
                         <i class="bi bi-question"></i>
                     {% endif %}
 
