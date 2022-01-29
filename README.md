@@ -15,4 +15,6 @@ pybabel extract -F babel.cfg -o messages.pot .
 pybabel init -i messages.pot -d translations -l se
 
 #To be able to view them in the app
-pybabel compile -d translationshttps://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
+pybabel compile -d translations
+
+#https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
