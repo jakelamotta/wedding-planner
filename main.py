@@ -88,7 +88,7 @@ def save_email():
     db.session.add(current_user)
     db.session.commit()
     flash('Email saved successfully')
-    return render_template("osa.html", user=current_user, guests=guests)
+    return redirect(url_for("main.osa"))
 
 def getGuests(current_user):
     guests = Guest.query.filter_by(userId=current_user.id).all()

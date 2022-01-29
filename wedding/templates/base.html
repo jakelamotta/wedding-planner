@@ -32,6 +32,7 @@
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/popper.min.js')}}"></script>
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/bootstrap.min.js')}}"></script>
     <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/bootstrap.bundle.min.js')}}"></script>
+    <script crossorigin="anonymous" src="{{ url_for('static', filename='./js/custom.js')}}"></script>
 </head>
 
 <body>
@@ -83,8 +84,15 @@
             </div>
         </nav>
     </div>
-    <img src="/static/img/wedding1.jpg" class="img-fluid banner">
-    <div class="hero-body">
+    <div class="container">
+        <img src="/static/img/wedding1.jpg" class="img-fluid banner">
+        {% if current_user.is_authenticated %}
+            <div class="col-sm-4 offset-sm-4">
+                <div class="text-center text-muted fs-6 timer border rounded-pill" id="countdown">
+            </div>
+        {% endif %}
+    </div>
+    <div class="hero-body wedding-body">
         <div class="container has-text-centered">
             {% block content %}
             {% endblock %}
