@@ -40,13 +40,10 @@ def create_app():
 
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['BABEL_DEFAULT_LOCALE'] = 'se'
+    app.config['BABEL_DEFAULT_LOCALE'] = 'sv'
     app.config['BABEL_DEFAULT_TIMEZONE']= 'UTC+1'
     # add to your app.config or config.py file
-    app.config['LANGUAGES'] = {
-        'se': 'Swedish',
-        'en': 'English'
-    }
+    app.config['LANGUAGES'] = ["sv", "sv_SV", "en"]
 
     db.init_app(app)
     babel.init_app(app)
@@ -58,7 +55,7 @@ app=create_app()
 limiter = Limiter(
     app,
     key_func=get_remote_address,
-    default_limits=["500 per day", "60 per hour"]
+    default_limits=["1000 per day", "250 per hour"]
 )
 
 login_manager = LoginManager()

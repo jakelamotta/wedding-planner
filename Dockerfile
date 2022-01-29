@@ -3,7 +3,7 @@ RUN mkdir -p /app/wedding/templates
 RUN mkdir -p /app/static/css/fonts
 RUN mkdir /app/static/js
 RUN mkdir /app/static/img
-RUN mkdir -p /app/translations/se/LC_MESSAGES
+RUN mkdir -p /app/wedding/translations/sv/LC_MESSAGES
 RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev
 RUN apk add --no-cache libxslt
 WORKDIR /app
@@ -13,7 +13,7 @@ ADD main.py /app
 ADD wedding/util.py /app/wedding
 ADD wedding/__init__.py /app/wedding
 ADD models.py /app
-ADD translations/se/LC_MESSAGES/messages.* translations/se/LC_MESSAGES/
+ADD wedding/translations/sv/LC_MESSAGES/messages.* wedding/translations/sv/LC_MESSAGES/
 ADD wedding/templates/*.html /app/wedding/templates/
 ADD wedding/static/css/*.map /app/wedding/static/css/
 ADD wedding/static/css/*.css /app/wedding/static/css/

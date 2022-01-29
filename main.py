@@ -166,6 +166,8 @@ Subject: Wedding of Vera and Kristian
 
     We hope to see YOU on the weekend of the 11th of June.
 
+    Ps This email can't be responded to.
+
     Love,
     Vera & Kristian
     """
@@ -175,7 +177,11 @@ Subject: Wedding of Vera and Kristian
 # add to you main app code
 @babel.localeselector
 def get_locale():
-    return 'se'
+    lang =  request.accept_languages.best_match(["sv"])
+    if (lang == None):
+        lang = "en"
+    print(lang)
+    return lang
 
 @babel.timezoneselector
 def get_timezone():
