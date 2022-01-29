@@ -5,7 +5,6 @@ from models import User, Guest
 from auth import auth as auth_blueprint
 from flask_babel import gettext, ngettext
 import re
-from tabulate import tabulate
 
 main = Blueprint('main', __name__)
 whitelistName = "^[ÅåÄäÖöa-zA-Z\.\-, ]+$"
