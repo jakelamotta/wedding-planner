@@ -87,19 +87,17 @@
     <div class="container">
         <img src="/static/img/wedding1.jpg" class="img-fluid banner">
         {% if current_user.is_authenticated %}
-            <div class="col-sm-4 offset-sm-4">
-                <div class="text-center text-muted fs-6 timer border rounded-pill" id="countdown">
-            </div>
+            <div class="text-center text-muted fs-6 timer border rounded-pill" id="countdown">
         {% endif %}
     </div>
-    <div class="hero-body wedding-body">
+    <div class="hero-body">
         <div class="container has-text-centered">
             {% block content %}
             {% endblock %}
         </div>
     </div>
 
-
+    </div>
 </section>
 </body>
 
