@@ -7,34 +7,33 @@
     </div>
 </div>
 <br/>
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-			<div class="col-md-2">Name</div>
-			<div class="col-md-3">Food preferences</div>
-			<div class="col-md-3">Song suggestion</div>
-			<div class="col-md-2">No alcohol</div>
-			<div class="col-md-2">Is attending</div>
-		</div>
-		{% if guests != None %}
+<table class="table table-sm table-striped">
+    <thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Has responded</th>
+			<th scope="col">Food preferences</th>
+			<th scope="col">Song suggestion</th>
+			<th scope="col">Alcohol</th>
+			<th scope="col">Is attending</th>
+		</tr>
+    </thead>
+    {% if guests != None %}
+		<tbody>
 
-			{% for guest in guests %}
-				<div class="row">
-					<div class="col-md-2">{{guest.name}}</div>
-					<div class="col-md-3">{{guest.foodPreferences}}</div>
-					<div class="col-md-3">{{guest.song}}</div>
-					<div class="col-md-2"><input type="checkbox" class="form-control" id="nonAlco_{{guest.name}}"
-												 name="nonAlco_{{guest.name}}" disabled=true
-												 aria-label={{'checked' if guest.nonAlcoholic else ''}}>
-					</div>
+		{% for guest in guests %}
+			<tr>
+				<td {% if guest.isAttending %}class="table-success"{% endif %} scope="row">{{guest.name}}</td>
+				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.hasResponded %} Yes {% else %} No {% endif %}</td>
+				<td {% if guest.isAttending %}class="table-success"{% endif %}>{{guest.foodPreferences}}</td>
+				<td {% if guest.isAttending %}class="table-success"{% endif %}>{{guest.song}}</td>
+				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.nonAlcoholic %} No {% else %} Yes {% endif %}</td>
+				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.isAttending %} Yes {% else %} No {% endif %}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
 
-					<div class="col-md-2"><input type="checkbox" class="form-control" id="attending_{{guest.name}}"
-												 name="attending_{{guest.name}}" value="{{guest.isAttending}}" aria-label={{'checked' if
-												 guest.isAttending else ''}}></div>
-				</div>
-			{% endfor %}
-        {% endif %}
-    </div>
-</div>
+    {% endif %}
+</table>
 
 {% endblock %}
