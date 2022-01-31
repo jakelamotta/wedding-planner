@@ -17,7 +17,7 @@ def logout():
     return redirect(url_for('main.index'))
 
 @auth.route('/login')
-@limiter.limit("20 per hour")
+@limiter.limit("500 per hour")
 def login():
     return render_template('login.html')
 
