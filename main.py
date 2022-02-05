@@ -68,7 +68,7 @@ def submit_osa():
     db.session.add(current_user)
     db.session.commit()
 
-    flash('Response successfully updated')
+    flash('Response successfully updated for ' + name)
     app.logger.info('Updated response for guest %s', name)
 
     if allGuestsRsvped:
@@ -76,7 +76,7 @@ def submit_osa():
         if not result:
             error = "Could not send email, something went wrong"
             return render_template("osa.html", user=current_user, guests=guests, error=error)
-        flash('Email confirmation sent')
+        flash('Email confirmation sent, if you did not find it please check your spam folder')
 
     return redirect(url_for("main.osa"))
 
