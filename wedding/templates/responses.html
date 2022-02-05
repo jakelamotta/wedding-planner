@@ -23,12 +23,12 @@
 
 		{% for guest in guests %}
 			<tr>
-				<td {% if guest.isAttending %}class="table-success"{% endif %} scope="row">{{guest.name}}</td>
-				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.hasResponded %} Yes {% else %} No {% endif %}</td>
-				<td {% if guest.isAttending %}class="table-success"{% endif %}>{{guest.foodPreferences}}</td>
-				<td {% if guest.isAttending %}class="table-success"{% endif %}>{{guest.song}}</td>
-				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.nonAlcoholic %} No {% else %} Yes {% endif %}</td>
-				<td {% if guest.isAttending %}class="table-success"{% endif %}>{% if guest.isAttending %} Yes {% else %} No {% endif %}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} scope="row">{{guest.name}}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} >{% if guest.hasResponded %} Yes {% else %} No {% endif %}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} >{{guest.foodPreferences}}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} >{{guest.song}}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} >{% if guest.nonAlcoholic %} No {% else %} Yes {% endif %}</td>
+				<td {% if guest.isAttending %}class="table-success" {% elif guest.hasResponded and not guest.isAttending %} class="table-danger" {% endif %} >{% if guest.isAttending %} Yes {% else %} No {% endif %}</td>
 			</tr>
 		{% endfor %}
 		</tbody>
