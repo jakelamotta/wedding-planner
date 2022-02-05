@@ -2,7 +2,7 @@
 
 {% block content %}
 <p class="display-6 text-muted fs-3">
-    Please note that you will be able to change your response until the 31st of March
+    Please note that you will be able to change your information until the 31st of March
 </p>
 <div class="row mt-5 ">
     {% with messages = get_flashed_messages() %}
@@ -44,7 +44,7 @@
 </div>
 {% if guests != None and user.email != None and user.email != "" %}
 <p class="display-6 text-muted fs-3 mt-5">
-    Remember to RSVP for each guest
+    Remember to RSVP for each guest. You don't have to add all information at once, changes can be made until the 31st of March
 </p>
 <div class="accordion mt-2 transition-delay" id="weddingAccordion">
     {% for guest in guests %}
@@ -122,7 +122,7 @@
                     <div class="row mt-3">
                         <input type="hidden" name="guest_name" value="{{guest.name}}" />
                         <div class="col-sm-4 text-start">
-                            <button type="submit" class="btn btn-primary text-muted pull-right">Save guest</button>
+                            <button type="submit" class="btn btn-primary text-muted pull-right">Save</button>
                         </div>
                     </div>
                 </form>
