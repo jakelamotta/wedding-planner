@@ -34,7 +34,7 @@ def create_app():
     app = Flask(__name__)
 
     #app.config.from_pyfile('babel.cfg')
-    app.config['SECRET_KEY'] = 'zZbHaknEBCqNS6tNBF3A'
+    app.config['SECRET_KEY'] = config["SECRET_KEY"]
     address='mysql+pymysql://root:' + config["DB_PASSWORD"] + '@' + config["DB_HOST"] + ':' + config["DB_PORT"] + '/wedding'
     app.config['SQLALCHEMY_DATABASE_URI'] = address
 
