@@ -39,6 +39,11 @@ class Config():
             self.config["SMTP_SERVER"] = os.environ['SMTP_SERVER']
         else:
             self.config["SMTP_SERVER"] = "test"
+
+        if ("SECRET_KEY" in os.environ):
+            self.config["SECRET_KEY"] = os.environ['SECRET_KEY']
+        else:
+            self.config["SECRET_KEY"] = "test"
         
     def getConfig():
 
