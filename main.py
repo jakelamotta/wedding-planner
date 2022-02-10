@@ -56,11 +56,16 @@ def submit_osa():
 
             if food == "" or re.match(whitelistName,food):
                 guest.foodPreferences = request.form.get('food_' + guest.name)
-            elif song == "" or re.match(whitelistName,song):
+            else:
+                error = "Disallowed characters used in food restrictions field"
+                return render_template("osa.html", user=current_user, guests=guests, error=error)
+
+            if song == "" or re.match(whitelistName,song):
                 guest.song = request.form.get('song_' + guest.name)
             else:
-                error = "Disallowed characters used in form"
+                error = "Disallowed characters used in song choice"
                 return render_template("osa.html", user=current_user, guests=guests, error=error)
+
             guest.hasResponded = True
             db.session.add(guest)
         allGuestsRsvped = allGuestsRsvped and guest.hasResponded
