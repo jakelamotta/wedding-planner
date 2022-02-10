@@ -13,6 +13,7 @@ services:
       - SMTP_PASSWORD=
       - SMTP_USERNAME=
       - SMTP_SERVER=
+      - SECRET_KEY=
     networks:
       - wedding-net
     labels:
