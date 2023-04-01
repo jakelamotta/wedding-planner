@@ -57,9 +57,6 @@
                                 class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.osa') }}">RSVP</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.schedule') }}">Itinerary</a>
                     </li>
                     <li class="nav-item">
@@ -71,6 +68,9 @@
                     {% if current_user.username == "admin" %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.signup') }}">Add guests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.osa') }}">RSVP</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.responses') }}">Responses</a>
